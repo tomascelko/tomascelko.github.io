@@ -2,9 +2,9 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='https://ksvi.mff.cuni.cz/index.en.php'>KSVI, Charles University, Prague</a>. Malostranské nám. 25, 118 00 Praha 1, Czech republic.
+subtitle: <a href='https://ksvi.mff.cuni.cz/index.en.php'>KSVI, Charles University, Prague</a>. Malostranské nám. 25, 118 00 Praha 1, Czech republic
   <br>
-  <a href='https://new-affiliation-link.com'>New Affiliation, City, Country</a>
+  <a href='https://www.utef.cvut.cz/ieap'>IEAP, Czech Technical University</a> Husova 240/5 Praha 1, Czech Republic
 
 profile:
   align: right
