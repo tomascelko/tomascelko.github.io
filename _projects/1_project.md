@@ -7,8 +7,7 @@ importance: 1
 category: work
 related_publications: true
 ---
-[static_clusterer_core_ubuntu2204.zip](../assets/clusterer_core/libclusterer_static.a)
-<a href="../assets/clusterer_core/static_lib.zip" download="static_clusterer_core_ubuntu2204.zip">Download static_clusterer_core_ubuntu2204.zip</a>
+<a href="/assets/clusterer_core/static_lib.zip" download="static_clusterer_core_ubuntu2204.zip">Download static_clusterer_core_ubuntu2204.zip</a>
 
 Every project has a beautiful feature showcase page.
 It's easy to include images in a flexible 3-column grid format.
