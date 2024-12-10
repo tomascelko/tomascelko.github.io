@@ -7,7 +7,7 @@ importance: 1
 category: work
 related_publications: true
 ---
-[static_clusterer_core_ubuntu2204.zip](../assets/clusterer_core/static/static_lib.zip)
+[static_clusterer_core_ubuntu2204.zip](../assets/clusterer_core/libclusterer_static.a)
 Every project has a beautiful feature showcase page.
 It's easy to include images in a flexible 3-column grid format.
 Make your photos 1/3, 2/3, or full width.
