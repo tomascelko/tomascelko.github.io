@@ -43,7 +43,7 @@ latest_version: 0_0_1
   </tr>
   <tr>
     <td>Linux</td>
-    <td><a href="/assets/clusterer_core/static_lib.zip" download="static_clusterer_core_ubuntu2204.zip">Download static_clusterer_core_ubuntu22_04_{{latest_version}}.zip</a></td>
+    <td><a href="/assets/clusterer_core/static_lib.zip" download="static_clusterer_core_ubuntu2204.zip">Download static_clusterer_core_ubuntu22_04_${{latest_version}}.zip</a></td>
     <td>TBD</td>
   </tr>
 </table>
