@@ -22,9 +22,10 @@
       institution: Faculty of Mathematics and Physics, Charles University, Prague
       year: 2021
       description:
-      - title: General computer science
-        - thesis: Support for annotating and classifying particles detected by Timepix3
-        - total grade average: 1.13
+        - title: General computer science
+          contents:
+            - thesis: Support for annotating and classifying particles detected by Timepix3
+            - total grade average: 1.13
 
 - title: Experience
   type: time_table
