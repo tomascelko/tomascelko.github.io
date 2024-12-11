@@ -30,56 +30,55 @@
 - title: Experience
   type: time_table
   contents:
-    - title: Test engineering internship
-      institution: MSD, 
-      year: 2020 - 2021
-      description: Internship focused on test automation in cypress and robot framework
-        
-    - title: Researcher
-      institution: Institute of experimental and applied physics, Czech Technical University in Prague
-      year: 2022 - present
-      description: Design of efficient data-processing algorithms for hybrid pixel detectors 
-
+    
     - title: Teacher
       institution: Faculty of Mathematics and Physics, Charles University, Prague
       year: 2023 - present
       description: Seminar on Automata and grammars
 
+    - title: Researcher
+      institution: Institute of experimental and applied physics, Czech Technical University in Prague
+      year: 2022 - present
+      description: Design of efficient data-processing algorithms for hybrid pixel detectors 
+
     - title: Exchange stay
       institution: Technical University in Munich
       year: 2022-2023 
+
+    - title: Test engineering internship
+      institution: MSD 
+      year: 2020 - 2021
+      description: Internship focused on test automation in cypress and robot framework
+        
 
 - title: Public presentations and conferences
   type: time_table
   contents:
     
-    - title: Open Medipix collaboration meeting
+    - title: Open Medipix collaboration meeting, Oxford, UK
       year: 2024
       place: Oxford, UK
       description: 	Oral presentation. „Parallel CPU and GPU-based connected component algorithms for event building for hybrid pixel detectors“
 
-    - title: 8th International Connecting The Dots Workshop
+    - title: 8th International Connecting The Dots Workshop, Toulouse, France
       year: 2023
       place: Toulouse, France
       description: 	Poster presentation. „Improvement of event-building for data-driven hybrid pixel detector data“
     
-    - title: Spring School of Artificial Intelligence
+    - title: Spring School of Artificial Intelligence, Spindleruv Mlyn, Czech Republic
       year: 2024
       place: Spindleruv Mlyn, Czech Republic
       description: Oral presentation. „Charged Particle Tracking via Edge Classifying Interaction Networks“
     
-    - title: 25th International Workshop on Radiation Imaging Detectors
+    - title: 25th International Workshop on Radiation Imaging Detectors, Lisbon, Portugal
       year: 2024
       place: Lisbon, Portugal
       description: Poster presentation. „Parallel CPU and GPU-based connected component algorithms for event building for hybrid pixel detectors“
     
-    - title: Summer school of machine learning in high-energy physics
+    - title: Summer school of machine learning in high-energy physics, Erice, Italy
       year: 2023
       place: Erice, Italy
-      description: 	Participation with certificate of excellence.  
-
-
-    
+      description: 	Participation with certificate of excellence
 
 - title: Other Interests
   type: list
