@@ -53,6 +53,11 @@
   type: time_table
   contents:
     
+    - title: Open Medipix collaboration meeting
+      year: 2024
+      place: Oxford, UK
+      description: 	Oral presentation. „Parallel CPU and GPU-based connected component algorithms for event building for hybrid pixel detectors“
+
     - title: 8th International Connecting The Dots Workshop
       year: 2023
       place: Toulouse, France
@@ -68,10 +73,12 @@
       place: Lisbon, Portugal
       description: Poster presentation. „Parallel CPU and GPU-based connected component algorithms for event building for hybrid pixel detectors“
     
-    - title: Open Medipix collaboration meeting
-      year: 2024
-      place: Oxford, UK
-      description: 	Oral presentation. „Parallel CPU and GPU-based connected component algorithms for event building for hybrid pixel detectors“
+    - title: Summer school of machine learning in high-energy physics
+      year: 2023
+      place: Erice, Italy
+      description: 	Participation with certificate of excellence.  
+
+
     
 
 - title: Other Interests
