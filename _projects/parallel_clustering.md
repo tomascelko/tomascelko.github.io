@@ -32,20 +32,44 @@ latest_version: 0_0_1
 ```
 <table>
   <tr>
-    <th>OS</th>
-    <th>Prebuilt Static Library</th>
-    <th>Prebuilt Dynamic Library</th>
+    <th>Platform</th>
+    <th>Library (Latest)</th>
+    <th>Library (Stable)</th>
+    
   </tr>
   <tr>
     <td>Windows</td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_core/build_windows10/clusterer_core.zip" download="clusterer_core_win.zip">Download clusterer_core_win.zip</a></td>
     <td>TBD</td>
   </tr>
   <tr>
-    <td>Linux</td>
-    <td><a href="/assets/clusterer_core/static_lib.zip" download="static_clusterer_core_ubuntu2204.zip">Download static_clusterer_core_ubuntu22_04_${{latest_version}}.zip</a></td>
+    <td>Other Unix-based system (archive)</td>
+    <td><a href="/assets/clusterer_core/build_ubuntu2404/clusterer_core.zip" download="clusterer_core.zip">Download clusterer_core.zip</a></td>
+    <td>TBD</td>
+
+  </tr>
+  <tr>
+    <td>Ubuntu 22.04</td>
+    <td><a href="/assets/clusterer_core/build_ubuntu2204/clusterer-core_0.0-1_amd64.deb" download="clusterer_core_ubuntu2204.deb">Download clusterer_core_ubuntu2204.deb</a></td>
+    <td>TBD</td>
+
+  </tr>
+  <tr>
+    <td>Ubuntu 24.04</td>
+    <td><a href="/assets/clusterer_core/build_ubuntu2404/clusterer-core_0.0-1_amd64.deb" download="clusterer_core_ubuntu2404.deb">Download clusterer_core_ubuntu2404.deb</a></td>
     <td>TBD</td>
   </tr>
+  <tr>
+    <td>Debian 11</td>
+    <td><a href="/assets/clusterer_core/build_debian11/clusterer-core_0.0-1_amd64.deb" download="clusterer_core_debian11.deb">Download clusterer_core_debian11.deb</a></td>
+    <td>TBD</td>
+  </tr>
+  <tr>
+    <td>Debian 12</td>
+    <td><a href="/assets/clusterer_core/build_debian12/clusterer-core_0.0-1_amd64.deb" download="clusterer_core_debian12.deb">Download clusterer_core_debian12.deb</a></td>
+    <td>TBD</td>
+  </tr>
+
 </table>
 
 Below you can find a few relaxing, unrelated images.
