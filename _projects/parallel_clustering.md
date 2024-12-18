@@ -8,10 +8,43 @@ category: work
 related_publications: true
 latest_version: 0_0_1
 ---
-# Clustering Library
+## About
 
-## Clustering library API example:
-```
+This project implements a parallel clustering libraries for CPU and GPU intended for hybrid pixel detectors. By clustering, we mean connected-component analysis with respect to spatial and temporal pixel coordinates. Namely, it implements algorithms described <a href="https://arxiv.org/abs/2412.11809"> here </a> also published by JINST Journal.  
+
+This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us.
+
+For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko@cvut.cz, I will be happy to help.
+
+## Supported hardware
+Currently we support clustering Timepix3 and Timpiex4 hits in data-driven mode.
+Support for frame-based mode and multiple-detector configurations is being implemented.
+
+## CPU parallel clustering
+
+Development in progress, TBD.
+
+## GPU parallel clustering
+
+
+### Requirements
+
+Project targets Linux-based and Windows platforms. Since the implementation runs in CUDA, a CUDA-capable device is required to run the project.
+
+Prerequisites to link against the prebuilt library (TBD):
+- Linux or Windows x86/64 platform
+- CUDA-capable device, compute capability >= 5.5
+- NVidia GPU Computing Toolkit including nvcc >= 12.6
+- CMake >= 3.20
+- C++ compiler compatible with C++17 standard
+
+### Installation
+
+TBD
+
+### API example:
+```cpp
+  // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx3_hit> data)
   {
     std::cout << "Returned with " << data.size << " hits" << std::endl;
@@ -22,19 +55,27 @@ latest_version: 0_0_1
     */
   }
 
-  external_dataflow_controller<tpx3_hit> controller_tpx3(node_args::load_tpx3_args(/*pass algorithm parameters here*/), output_callback);  
+  //initialize controller with arguments
+  external_dataflow_controller<tpx3_hit> controller_tpx3(node_args::load_tpx3_args(/*pass algorithm parameters here*/), output_callback);
+  //run the controller, after that we are ready to receive data  
   controller_tpx3.run();
+  //store reference to reader node
   external_stream_data_reader<tpx3_hit>* reader = controller_tpx3.input();
+  //process hits in a loop, example
   reader->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4/*tot*/);
+  //after sufficient amount of hits is processed, the callback is called
   ...
+  //stop the dataflow, and flush not-yet processed hits for and call callback for the last time
   controller_tpx3.close();
 
 ```
+### Prebuilt library available for download:
+
 <table>
   <tr>
     <th>Platform</th>
-    <th>Library (Latest)</th>
-    <th>Library (Stable)</th>
+    <th>GPU Library, prebuilt (Latest)</th>
+    <th>GPU Library, prebuilt (Stable)</th>
     
   </tr>
   <tr>
@@ -72,7 +113,7 @@ latest_version: 0_0_1
 
 </table>
 
-Below you can find a few relaxing, unrelated images.
+Below you can find a few relaxing and project-unrelated images.
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
         {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
@@ -84,14 +125,3 @@ Below you can find a few relaxing, unrelated images.
         {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
     </div>
 </div>
-
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
-
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
