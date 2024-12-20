@@ -91,23 +91,23 @@ TBD
   </tr>
   <tr>
     <td>Ubuntu 22.04</td>
-    <td><a href="/assets/clusterer_core/build_ubuntu2204/clusterer_core_amd64.deb" download="clusterer_core_ubuntu2204.deb">Download clusterer_core_ubuntu2204.deb</a></td>
+    <td><a href="/assets/clusterer_core/build_ubuntu2204/clusterer_core_x64.deb" download="clusterer_core_ubuntu2204.deb">Download clusterer_core_ubuntu2204.deb</a></td>
     <td>TBD</td>
 
   </tr>
   <tr>
     <td>Ubuntu 24.04</td>
-    <td><a href="/assets/clusterer_core/build_ubuntu2404/clusterer_core_amd64.deb" download="clusterer_core_ubuntu2404.deb">Download clusterer_core_ubuntu2404.deb</a></td>
+    <td><a href="/assets/clusterer_core/build_ubuntu2404/clusterer_core_x64.deb" download="clusterer_core_ubuntu2404.deb">Download clusterer_core_ubuntu2404.deb</a></td>
     <td>TBD</td>
   </tr>
   <tr>
     <td>Debian 11</td>
-    <td><a href="/assets/clusterer_core/build_debian11/clusterer_core_amd64.deb" download="clusterer_core_debian11.deb">Download clusterer_core_debian11.deb</a></td>
+    <td><a href="/assets/clusterer_core/build_debian11/clusterer_core_x64.deb" download="clusterer_core_debian11.deb">Download clusterer_core_debian11.deb</a></td>
     <td>TBD</td>
   </tr>
   <tr>
     <td>Debian 12</td>
-    <td><a href="/assets/clusterer_core/build_debian12/clusterer_core_amd64.deb" download="clusterer_core_debian12.deb">Download clusterer_core_debian12.deb</a></td>
+    <td><a href="/assets/clusterer_core/build_debian12/clusterer_core_x64.deb" download="clusterer_core_debian12.deb">Download clusterer_core_debian12.deb</a></td>
     <td>TBD</td>
   </tr>
 
