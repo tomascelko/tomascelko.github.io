@@ -14,15 +14,22 @@ This project implements a parallel clustering libraries for CPU and GPU intended
 
 This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us.
 
-For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko@cvut.cz, I will be happy to help.
+For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko(at)cvut.cz, I will be happy to help.
 
 ## Supported hardware
 Currently we support clustering Timepix3 and Timpiex4 hits in data-driven mode.
 Support for frame-based mode and multiple-detector configurations is being implemented.
 
+
+# News
+
+19.12 - We are currently working on finalizing the package for the first (alpha) release of the GPU package. 
+
 ## CPU parallel clustering
 
-Development in progress, TBD.
+We implemented CPU-based parallel clustering as a part of the <a href="https://software.utef.cvut.cz/tracklab/"> Tracklab</a> software, where it can be used.
+
+Development of the standalone package is in progress.
 
 ## GPU parallel clustering
 
@@ -40,7 +47,8 @@ Prerequisites to link against the prebuilt library (TBD):
 
 ### Installation
 
-TBD
+#### Archive (.zip)
+
 
 ### API example:
 ```cpp
@@ -70,7 +78,6 @@ TBD
 
 ```
 ### Prebuilt library available for download:
-
 <table>
   <tr>
     <th>Platform</th>
