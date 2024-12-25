@@ -1,4 +1,0 @@
-/home/runner/work/clusterer_core/clusterer_core/build/CMakeFiles/clusterer_static.dir
-/home/runner/work/clusterer_core/clusterer_core/build/CMakeFiles/clusterer.dir
-/home/runner/work/clusterer_core/clusterer_core/build/CMakeFiles/edit_cache.dir
-/home/runner/work/clusterer_core/clusterer_core/build/CMakeFiles/rebuild_cache.dir
