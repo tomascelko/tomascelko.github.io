@@ -41,14 +41,48 @@ Project targets Linux-based and Windows platforms. Since the implementation runs
 Prerequisites to link against the prebuilt library (TBD):
 - Linux or Windows x86/64 platform
 - CUDA-capable device, compute capability >= 5.5
-- NVidia GPU Computing Toolkit including nvcc >= 12.6
-- CMake >= 3.20
+- NVidia GPU Computing Toolkit >= 12.6 (and a compatible nvidia driver, check with `nvidia-smi` command)
+- CMake >= 3.19
 - C++ compiler compatible with C++17 standard
 
 ### Installation
+We provide user multiple options how to install our library:
 
-#### Archive (.zip)
+#### 1.From prebuilt .zip package
+- download suitable version for your platform from the table below
+- extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`
+- letting cmake know about path to `clusterer_cuda-config.cmake` - TBD
 
+
+#### 2.From installer file (.deb)
+- download suitable installer file
+- (optional) for .deb file, check the Lintian output, make sure there are no errors
+
+#### 3.From source
+- Request access to the repository by email - free for non-commercial applications 
+- Create a build folder and generate build files with `cmake ..` or similar
+- build with `cmake --build . --config=Release`
+
+- We kindly ask the users to cite the corresponding article [TBD] 
+
+### Linking
+
+- ## Use "find_package" from your cmakelists
+
+We consider this to be the most convenient option. An example part of cmake script can be found below:
+```cmake 
+set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_LIST_DIR}/build/Release")
+set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking
+find_package(clusterer_cuda REQUIRED)
+message(THESE_VARIABLES_ARE_INITIALIZED ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
+add_executable(clusterer_test "src/main.cpp")
+target_include_directories(clusterer_test PRIVATE ${CLUSTERER_CUDA_INCLUDE_DIR})
+target_link_libraries(clusterer_test PRIVATE 
+    ${CLUSTERER_CUDA_LIBRARY} 
+    CUDA::cudart_static # choose between cudart_static and cudart
+    CUDA::nvrtc      
+)
+```
 
 ### API example:
 ```cpp
