@@ -50,8 +50,8 @@ We provide user multiple options how to install our library:
 
 #### 1.From prebuilt .zip package
 - download suitable version for your platform from the table below
-- extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`
-- letting cmake know about path to `clusterer_cuda-config.cmake` - TBD
+- extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`. The next step might not be required if the files were placed in standard locations like `/usr/lib`  
+- letting cmake know about path to `clusterer_cuda-config.cmake` -  either set `CMAKE_PREFIX_PATH` to directory where `clusterer_cuda-config.cmake` is located or add it to environmental `PATH` variable. TBD
 
 
 #### 2.From installer file (.deb)
