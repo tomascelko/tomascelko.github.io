@@ -1,9 +1,9 @@
 ---
 layout: page
 title: Neat-coevolution
-description: another project with an image 🎉
-img: assets/img/6.jpg
+description: Evolving neural networks using NEAT in co-evolution environment 
 importance: 1
 category: fun
 ---
 
+TBD

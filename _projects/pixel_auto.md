@@ -1,11 +1,9 @@
 ---
 layout: page
 title: pixel_auto
-description: with background image
-img: assets/img/4.jpg
+description: Development of methodology for application of finite automatons to particle classification
 importance: 1
 category: work
 related_publications: true
 ---
-TBD:
-Deterministic finite automatons for particle identification.
+This project focuses on creation of deterministic finite automatons for particle identification in pixel detectors. The project in currently in progress, more info will be available soon.
