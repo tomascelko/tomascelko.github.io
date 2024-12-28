@@ -145,6 +145,26 @@ And for using the clustering library with timepix4 data folow similar approach:
   //stop the dataflow, and flush not-yet processed hits and call callback for the last time
   controller_tpx4.close();
 ```
+
+And finally, an example, how the `config.txt` file might look like:
+```
+// Configuration for clustering
+max_hitrate_mhz = 300 // maximum possible hitrate that can occur during max_unsortedness period of time
+max_unsortedness_mus = 500 // maximum unorderedness of hits on the input
+max_cluster_join_time_ns = 300 // maximum time difference of hits to be considered neighboring
+buffer_size = 7000000 // host and device buffer size
+host_buffer_count = 8 // number of pinned-memory buffers allocated on the host
+cuda_streams_per_worker = 4 // number of cuda streams in each clustering worker
+cuda_thread_count = 7680 // degree of parallelization, use carefully based on the buffer_size and available hardware
+cuda_min_launch_stream_count = 4 // minimum number of buffers required to run the clustering
+cuda_clustering_threads_per_block = 128 // number of threads in a single cuda thread block
+print_info_dt_ms = 500 // frequency of printing information about the dataflow
+toa_ns_decimal_digits = 1 // decimal digits of toa 0 = 1ns, 1 = 0.1ns, 2 = 0.01ns ...
+cuda_init_threads_per_block = 256 // threads per block used for initialization of auxiliary datastructures
+_label_cache_size = 32 // size of the label cache in shared memory
+_hit_data_cache_size = 12 // size of the hit data cache, beware of the available shared memory on a GPU
+```
+
 ### Prebuilt library available for download:
 <table>
   <tr>
