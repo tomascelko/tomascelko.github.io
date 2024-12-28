@@ -12,18 +12,21 @@ latest_version: 0_0_1
 
 This project implements a parallel clustering libraries for CPU and GPU intended for hybrid pixel detectors. By clustering, we mean connected-component analysis with respect to spatial and temporal pixel coordinates. Namely, it implements algorithms described <a href="https://arxiv.org/abs/2412.11809"> here </a> also published by JINST Journal.  
 
-This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us.
+This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us. We kindly ask the users to cite the corresponding article [TBD], should any of the described parallel clustering method be applied in your work. 
 
 For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko(at)cvut.cz, I will be happy to help.
 
 ## Supported hardware
 Currently we support clustering Timepix3 and Timpiex4 hits in data-driven mode.
 Support for frame-based mode and multiple-detector configurations is being implemented.
+Support for other similar detectors or modes is a matter of demand, feel free to let us know about possible applications.
 
 
-# News
+## News
 
 19.12 - We are currently working on finalizing the package for the first (alpha) release of the GPU package. 
+26.12 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing
+28.12 - Extended documentation,  
 
 ## CPU parallel clustering
 
@@ -48,28 +51,31 @@ Prerequisites to link against the prebuilt library (TBD):
 ### Installation
 We provide user multiple options how to install our library:
 
-#### 1.From prebuilt .zip package
-- download suitable version for your platform from the table below
-- extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`. The next step might not be required if the files were placed in standard locations like `/usr/lib`  
-- letting cmake know about path to `clusterer_cuda-config.cmake` -  either set `CMAKE_PREFIX_PATH` to directory where `clusterer_cuda-config.cmake` is located or add it to environmental `PATH` variable. TBD
-
-
-#### 2.From installer file (.deb)
+#### 1.From installer file (.deb) - recommended
 - download suitable installer file
 - (optional) for .deb file, check the Lintian output, make sure there are no errors
+- make sure all prerequisites are matched - this is not hard-checked by the package
+- run the installer
+
+#### 2.From prebuilt .zip package
+- download suitable version for your platform from the table below
+- extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `C:/Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`. The next step might not be required if the files were placed in standard locations like `/usr/lib`  
+- letting cmake know about path to `clusterer_cuda-config.cmake` -  either set `CMAKE_PREFIX_PATH` to directory where `clusterer_cuda-config.cmake` is located or add it to environmental `PATH` variable.
+
 
 #### 3.From source
 - Request access to the repository by email - free for non-commercial applications 
 - Create a build folder and generate build files with `cmake ..` or similar
-- build with `cmake --build . --config=Release`
+- Build with `cmake --build . --config=Release`
+- Similarily to option 2 ("From prebuilt .zip package"), let cmake know the path to `clusterer_cuda-config.cmake` file
 
-- We kindly ask the users to cite the corresponding article [TBD] 
+If you struggle with installation, feel free to reach out by email.
 
 ### Linking
 
-- ## Use "find_package" from your cmakelists
+- ## Use `find_package` from your cmakelists
 
-We consider this to be the most convenient option. An example part of cmake script can be found below:
+We consider this to be the most convenient option. Based on the value of `CLUSTERER_CUDA_USE_STATIC` variable, the `clusterer_cuda-config.cmake` sets the variables `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY`. An example part of cmake script can be found below:
 ```cmake 
 set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_LIST_DIR}/build/Release")
 set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking
@@ -79,10 +85,13 @@ add_executable(clusterer_test "src/main.cpp")
 target_include_directories(clusterer_test PRIVATE ${CLUSTERER_CUDA_INCLUDE_DIR})
 target_link_libraries(clusterer_test PRIVATE 
     ${CLUSTERER_CUDA_LIBRARY} 
-    CUDA::cudart_static # choose between cudart_static and cudart
+    CUDA::cudart_static # choose either cudart_static and cudart
     CUDA::nvrtc      
 )
 ```
+- ## Set include and library paths manually
+
+Another option is to bypass cmake `find_package` completely and set `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY` manually. This is also the case for non-cmake-based projects, like the ones in Visual Studio. In Visual Studio, go to `Configuration Properties > C/C++ > General` and set `Additional Include Directories`, and similarly for `Configuration Properties > Linker > General` set `Additional Library Directories`.
 
 ### API example:
 ```cpp
@@ -91,14 +100,14 @@ target_link_libraries(clusterer_test PRIVATE
   {
     std::cout << "Returned with " << data.size << " hits" << std::endl;
     std::cout << "First hit: " << data.x[0] << data.y[0] << data.toa[0] << data.tot[0] << data.label[0] << std::endl;
-    /*process the data here in the callback, make a copy,....
+    /*process the data here in the callback, make a copy, as the data pointers might not be valid after callback returns...
       data.x, data.y, data.toa, data.tot
       //note: data.toa is uint64_t = 19 digits of precision - toa in nanoseconds or even smaller, controlled by parameter decimal digits 
     */
   }
 
   //initialize controller with arguments
-  external_dataflow_controller<tpx3_hit> controller_tpx3(node_args::load_tpx3_args(/*pass algorithm parameters here*/), output_callback);
+  external_dataflow_controller<tpx3_hit> controller_tpx3(node_args::load_tpx3_args(/*pass algorithm parameters here in a config file*/ "config.txt"), output_callback);
   //run the controller, after that we are ready to receive data  
   controller_tpx3.run();
   //store reference to reader node
