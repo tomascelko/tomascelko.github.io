@@ -24,13 +24,13 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
-19.12 - We are currently working on finalizing the package for the first (alpha) release of the GPU package. 
-26.12 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing
-28.12 - Extended documentation,  
+19.12.2024 - We are currently working on finalizing the package for the first (alpha) release of the GPU package. 
+26.12.2024 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing.
+28.12.2024 - Extended the installation documentation.
 
 ## CPU parallel clustering
 
-We implemented CPU-based parallel clustering as a part of the <a href="https://software.utef.cvut.cz/tracklab/"> Tracklab</a> software, where it can be used.
+We implemented CPU-based parallel clustering directly as a part of the <a href="https://software.utef.cvut.cz/tracklab/"> Tracklab</a> software, where it can be used.
 
 Development of the standalone package is in progress.
 
@@ -51,19 +51,19 @@ Prerequisites to link against the prebuilt library (TBD):
 ### Installation
 We provide user multiple options how to install our library:
 
-#### 1.From installer file (.deb) - recommended
+#### Option 1: From installer file (.deb) - recommended
 - download suitable installer file
 - (optional) for .deb file, check the Lintian output, make sure there are no errors
 - make sure all prerequisites are matched - this is not hard-checked by the package
 - run the installer
 
-#### 2.From prebuilt .zip package
+#### Option 2: From prebuilt .zip package
 - download suitable version for your platform from the table below
 - extract the zip file to desired location. For linux, you may want to copy contents of the `include` folder to `usr/include/` and contents of `lib` folder to `/usr/lib/`. For Windows, you may want to copy contents of the extracted `clusterer_cuda` folder to `C:/Program Files` and let cmake know about path to `clusterer_cuda-config.cmake`. The next step might not be required if the files were placed in standard locations like `/usr/lib`  
 - letting cmake know about path to `clusterer_cuda-config.cmake` -  either set `CMAKE_PREFIX_PATH` to directory where `clusterer_cuda-config.cmake` is located or add it to environmental `PATH` variable.
 
 
-#### 3.From source
+#### Option 3: From source
 - Request access to the repository by email - free for non-commercial applications 
 - Create a build folder and generate build files with `cmake ..` or similar
 - Build with `cmake --build . --config=Release`
@@ -73,7 +73,7 @@ If you struggle with installation, feel free to reach out by email.
 
 ### Linking
 
-- ## Use `find_package` from your cmakelists
+#### Option 1: Use `find_package` from your cmakelists
 
 We consider this to be the most convenient option. Based on the value of `CLUSTERER_CUDA_USE_STATIC` variable, the `clusterer_cuda-config.cmake` sets the variables `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY`. An example part of cmake script can be found below:
 ```cmake 
@@ -89,12 +89,17 @@ target_link_libraries(clusterer_test PRIVATE
     CUDA::nvrtc      
 )
 ```
-- ## Set include and library paths manually
+#### Option 2: Set include and library paths manually
 
 Another option is to bypass cmake `find_package` completely and set `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY` manually. This is also the case for non-cmake-based projects, like the ones in Visual Studio. In Visual Studio, go to `Configuration Properties > C/C++ > General` and set `Additional Include Directories`, and similarly for `Configuration Properties > Linker > General` set `Additional Library Directories`.
 
-### API example:
+
+### Example use:
 ```cpp
+#include "cuda_clusterer/data_flow/external_dataflow_controller.h"
+#include "cuda_clusterer/data_structs/clustered_data.h"
+#include "cuda_clusterer/data_nodes/nodes_package.h"
+
   // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx3_hit> data)
   {
@@ -116,9 +121,29 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
   reader->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4/*tot*/);
   //after sufficient amount of hits is processed, the callback is called
   ...
-  //stop the dataflow, and flush not-yet processed hits for and call callback for the last time
+  //stop the dataflow, and flush not-yet processed hits and call callback for the last time
   controller_tpx3.close();
+```
+And for using the clustering library with timepix4 data folow similar approach:
+```cpp
+#include "cuda_clusterer/data_flow/external_dataflow_controller.h"
+#include "cuda_clusterer/data_structs/clustered_data.h"
+#include "cuda_clusterer/data_nodes/nodes_package.h"
 
+// define function callback to receive clustered data
+  auto output_callback = [](clustered_data<tpx4_hit> data){...}
+  //initialize controller with arguments
+  external_dataflow_controller<tpx4_hit> controller_tpx4(node_args::load_tpx4_args(/*pass algorithm parameters here in a config file*/ "config.txt"), output_callback);
+  //run the controller, after that we are ready to receive data
+  controller_tpx4.run();
+  //store reference to reader node
+  external_stream_data_reader<tpx4_hit>* reader = controller_tpx4.input();
+  //process hits in a loop, notice the addition of ultra fine toa
+  reader->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4 /*ultra fine toa*/, 5/*tot*/);
+  //after sufficient amount of hits is processed, the callback is called
+  ...
+  //stop the dataflow, and flush not-yet processed hits and call callback for the last time
+  controller_tpx4.close();
 ```
 ### Prebuilt library available for download:
 <table>
