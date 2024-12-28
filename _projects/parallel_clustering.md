@@ -24,9 +24,11 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
-19.12.2024 - We are currently working on finalizing the package for the first (alpha) release of the GPU package. 
-26.12.2024 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing.
-28.12.2024 - Extended the installation documentation.
+19.12.2024 - We are currently working on finalizing the package for the first (alpha) release of the GPU package.   
+
+26.12.2024 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing.  
+
+28.12.2024 - Extended the installation documentation.  
 
 ## CPU parallel clustering
 
