@@ -24,11 +24,13 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
-19.12.2024 - We are currently working on finalizing the package for the first (alpha) release of the GPU package.   
+2.1.2025 - Added windows installer, but our gitlab linux distribution ci/cd pipelines seem to currently broken and therefore are not updated. The available version of .deb files should still be functional.
+
+28.12.2024 - Extended the installation documentation.   
 
 26.12.2024 - Baseline testing of all prebuilt libraries has passed, continuing with parameter testing.  
 
-28.12.2024 - Extended the installation documentation.  
+19.12.2024 - We are currently working on finalizing the package for the first (alpha) release of the GPU package.   
 
 ## CPU parallel clustering
 
@@ -79,7 +81,9 @@ If you struggle with installation, feel free to reach out by email.
 
 We consider this to be the most convenient option. Based on the value of `CLUSTERER_CUDA_USE_STATIC` variable, the `clusterer_cuda-config.cmake` sets the variables `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY`. An example part of cmake script can be found below:
 ```cmake 
-set(CMAKE_BINARY_DIR "${CMAKE_CURRENT_LIST_DIR}/build/Release")
+#we can set this variable, if we link dynamically and want to copy the .dll/.so file to the binary folder 
+#note, if it is not set, we need to make sure .dll/.so file is findable by the system
+set(CMAKE_BINARY_DIR_COPY_DLL "${CMAKE_CURRENT_LIST_DIR}/build/Release")
 set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking
 find_package(clusterer_cuda REQUIRED)
 message(THESE_VARIABLES_ARE_INITIALIZED ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
@@ -87,7 +91,7 @@ add_executable(clusterer_test "src/main.cpp")
 target_include_directories(clusterer_test PRIVATE ${CLUSTERER_CUDA_INCLUDE_DIR})
 target_link_libraries(clusterer_test PRIVATE 
     ${CLUSTERER_CUDA_LIBRARY} 
-    CUDA::cudart_static # choose either cudart_static and cudart
+    CUDA::cudart_static # choose either cudart_static or cudart
     CUDA::nvrtc      
 )
 ```
@@ -98,9 +102,9 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
 
 ### IV. Example use:
 ```cpp
-#include "cuda_clusterer/data_flow/external_dataflow_controller.h"
-#include "cuda_clusterer/data_structs/clustered_data.h"
-#include "cuda_clusterer/data_nodes/nodes_package.h"
+#include "data_flow/external_dataflow_controller.h"
+#include "data_structs/clustered_data.h"
+#include "data_nodes/nodes_package.h"
 
   // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx3_hit> data)
@@ -128,9 +132,9 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
 ```
 And for using the clustering library with timepix4 data folow similar approach:
 ```cpp
-#include "cuda_clusterer/data_flow/external_dataflow_controller.h"
-#include "cuda_clusterer/data_structs/clustered_data.h"
-#include "cuda_clusterer/data_nodes/nodes_package.h"
+#include "data_flow/external_dataflow_controller.h"
+#include "data_structs/clustered_data.h"
+#include "data_nodes/nodes_package.h"
 
 // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx4_hit> data){...}
