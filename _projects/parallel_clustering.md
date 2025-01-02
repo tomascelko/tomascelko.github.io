@@ -176,8 +176,13 @@ _hit_data_cache_size = 12 // size of the hit data cache, beware of the available
     
   </tr>
   <tr>
-    <td>Windows</td>
-    <td><a href="/assets/clusterer_cuda/build_windows10/clusterer_cuda.zip" download="clusterer_cuda_win.zip">Download clusterer_cuda_win.zip</a></td>
+    <td>Windows installer</td>
+    <td><a href="/assets/clusterer_cuda/build_win/clusterer_cuda_installer.exe" download="clusterer_cuda_installer.exe">Download clusterer_cuda_installer.exe</a></td>
+    <td>TBD</td>
+  </tr>
+  <tr>
+    <td>Windows (archive)</td>
+    <td><a href="/assets/clusterer_cuda/build_win/clusterer_cuda_win.zip" download="clusterer_cuda_win.zip">Download clusterer_cuda_win.zip</a></td>
     <td>TBD</td>
   </tr>
   <tr>
@@ -207,6 +212,7 @@ _hit_data_cache_size = 12 // size of the hit data cache, beware of the available
     <td><a href="/assets/clusterer_cuda/build_debian12/clusterer_cuda_x64.deb" download="clusterer_cuda_debian12.deb">Download clusterer_cuda_debian12.deb</a></td>
     <td>TBD</td>
   </tr>
+
 
 </table>
 
