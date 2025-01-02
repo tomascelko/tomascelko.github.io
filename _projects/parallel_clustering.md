@@ -39,7 +39,7 @@ Development of the standalone package is in progress.
 ## GPU parallel clustering
 
 
-### Requirements
+### I. Requirements
 
 Project targets Linux-based and Windows platforms. Since the implementation runs in CUDA, a CUDA-capable device is required to run the project.
 
@@ -50,7 +50,7 @@ Prerequisites to link against the prebuilt library (TBD):
 - CMake >= 3.19
 - C++ compiler compatible with C++17 standard
 
-### Installation
+### II. Installation
 We provide user multiple options how to install our library:
 
 #### Option 1: From installer file (.deb) - recommended
@@ -73,7 +73,7 @@ We provide user multiple options how to install our library:
 
 If you struggle with installation, feel free to reach out by email.
 
-### Linking
+### III. Linking
 
 #### Option 1: Use `find_package` from your cmakelists
 
@@ -96,7 +96,7 @@ target_link_libraries(clusterer_test PRIVATE
 Another option is to bypass cmake `find_package` completely and set `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY` manually. This is also the case for non-cmake-based projects, like the ones in Visual Studio. In Visual Studio, go to `Configuration Properties > C/C++ > General` and set `Additional Include Directories`, and similarly for `Configuration Properties > Linker > General` set `Additional Library Directories`.
 
 
-### Example use:
+### IV. Example use:
 ```cpp
 #include "cuda_clusterer/data_flow/external_dataflow_controller.h"
 #include "cuda_clusterer/data_structs/clustered_data.h"
@@ -167,7 +167,7 @@ _label_cache_size = 32 // size of the label cache in shared memory
 _hit_data_cache_size = 12 // size of the hit data cache, beware of the available shared memory on a GPU
 ```
 
-### Prebuilt library available for download:
+### V. Prebuilt library available for download:
 <table>
   <tr>
     <th>Platform</th>
