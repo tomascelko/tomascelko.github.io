@@ -53,10 +53,10 @@ Prerequisites to link against the prebuilt library (TBD):
 ### II. Installation
 We provide user multiple options how to install our library:
 
-#### Option 1: From installer file (.deb) - recommended
+#### Option 1: From installer file (.deb / .exe) - recommended
 - download suitable installer file
 - (optional) for .deb file, check the Lintian output, make sure there are no errors
-- make sure all prerequisites are matched - this is not hard-checked by the package
+- (important) make sure all prerequisites are matched - this is not checked by the package
 - run the installer
 
 #### Option 2: From prebuilt .zip package
@@ -168,6 +168,7 @@ _hit_data_cache_size = 12 // size of the hit data cache, beware of the available
 ```
 
 ### V. Prebuilt library available for download:
+
 <table>
   <tr>
     <th>Platform</th>
