@@ -2,7 +2,7 @@
 layout: page
 title: Parallel clustering library
 description: Fast connected component analysis for hybrid pixel detectors
-img: assets/img/logo_parallel_clustering.jpeg
+img: assets/img/logoParallelClusterer.png
 importance: 1
 category: work
 related_publications: true
