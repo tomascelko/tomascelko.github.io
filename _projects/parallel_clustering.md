@@ -84,9 +84,9 @@ We consider this to be the most convenient option. Based on the value of `CLUSTE
 #we can set this variable, if we link dynamically and want to copy the .dll/.so file to the binary folder 
 #note, if it is not set, we need to make sure .dll/.so file is findable by the system
 set(CMAKE_BINARY_DIR_COPY_DLL "${CMAKE_CURRENT_LIST_DIR}/build/Release")
-set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking
+set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking, If building in debug mode, switching this to OFF can help
 find_package(clusterer_cuda REQUIRED)
-message(THESE_VARIABLES_ARE_INITIALIZED ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
+message(THESE_VARIABLES_SHOULD_BE_INITIALIZED ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
 add_executable(clusterer_test "src/main.cpp")
 target_include_directories(clusterer_test PRIVATE ${CLUSTERER_CUDA_INCLUDE_DIR})
 target_link_libraries(clusterer_test PRIVATE 
@@ -105,7 +105,9 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
 #include "data_flow/external_dataflow_controller.h"
 #include "data_structs/clustered_data.h"
 #include "data_nodes/nodes_package.h"
-
+using namespace clustering;
+void test_clustering_tpx3()
+{
   // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx3_hit> data)
   {
@@ -129,13 +131,16 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
   ...
   //stop the dataflow, and flush not-yet processed hits and call callback for the last time
   controller_tpx3.close();
+}
 ```
 And for using the clustering library with timepix4 data folow similar approach:
 ```cpp
 #include "data_flow/external_dataflow_controller.h"
 #include "data_structs/clustered_data.h"
 #include "data_nodes/nodes_package.h"
-
+using namespace clustering;
+void test_clustering_tpx4()
+{
 // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx4_hit> data){...}
   //initialize controller with arguments
@@ -150,6 +155,7 @@ And for using the clustering library with timepix4 data folow similar approach:
   ...
   //stop the dataflow, and flush not-yet processed hits and call callback for the last time
   controller_tpx4.close();
+}
 ```
 
 And finally, an example, how the `config.txt` file might look like:
