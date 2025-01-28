@@ -24,6 +24,8 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
+28.1.2025 - Test multiple combinations of parameters and fixed found bugs. Refactored the code to remove "CUDA separable compilation" option which now increased the clustering throughput back to the values listed in the published paper (~10-15%). 
+
 2.1.2025 - Added windows installer, but our gitlab linux distribution ci/cd pipelines seem to currently broken and therefore are not updated. The available version of .deb files should still be functional.
 
 28.12.2024 - Extended the installation documentation.   
