@@ -21,3 +21,17 @@
 	website      = {https://dx.doi.org/10.1088/1748-0221/19/02/C02016},
 	selected     = {true}
 }
+@article{Čelko_2025,
+doi = {10.1088/1748-0221/20/01/C01041},
+url = {https://dx.doi.org/10.1088/1748-0221/20/01/C01041},
+year = {2025},
+month = {jan},
+publisher = {IOP Publishing},
+volume = {20},
+number = {01},
+pages = {C01041},
+author = {Čelko, T. and Mráz, F. and Bergmann, B. and Mánek, P.},
+title = {Parallel CPU- and GPU-based connected component algorithms for event building for hybrid pixel detectors},
+journal = {Journal of Instrumentation},
+abstract = {The latest generation of Timepix series hybrid pixel detectors enhance particle tracking with high spatial and temporal resolution. However, their high hit-rate capability poses challenges for data processing, particularly in multidetector configurations or systems like Timepix4. Storing and processing each hit offline is inefficient for such high data throughput. To efficiently group partly unsorted pixel hits into clusters for particle event characterization, we explore parallel approaches for online clustering to enable real-time data reduction. Although using multiple CPU cores improved throughput, scaling linearly with the number of cores, load-balancing issues between processing and I/O led to occasional data loss. We propose a parallel connected component labeling algorithm using a union-find structure with path compression optimized for zero-suppression data encoding. Our GPU implementation achieved a throughput of up to 300 million hits per second, providing a two-order-of-magnitude speedup over compared CPU-based methods while also freeing CPU resources for I/O handling and reducing the data loss.}
+}

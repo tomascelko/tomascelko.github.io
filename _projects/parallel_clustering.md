@@ -10,9 +10,9 @@ latest_version: 0_0_1
 ---
 ## About
 
-This project implements a parallel clustering libraries for CPU and GPU intended for hybrid pixel detectors. By clustering, we mean connected-component analysis with respect to spatial and temporal pixel coordinates. Namely, it implements algorithms described <a href="https://arxiv.org/abs/2412.11809"> here </a> also published by JINST Journal.  
+This project implements a parallel clustering libraries for CPU and GPU intended for hybrid pixel detectors. By clustering, we mean connected-component analysis with respect to spatial and temporal pixel coordinates. Namely, it implements algorithms described <a href="https://iopscience.iop.org/article/10.1088/1748-0221/20/01/C01041"> here </a> published in Journal of Instrumentation.  
 
-This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us. We kindly ask the users to cite the corresponding article [TBD], should any of the described parallel clustering method be applied in your work. 
+This project provides free access to source code for non-commercial puproposes on request. For access, do not hesitate to contact us. We kindly ask the users to cite the corresponding <a href="https://iopscience.iop.org/article/10.1088/1748-0221/20/01/C01041"> article </a>, should any of the described parallel clustering method be applied in your work. 
 
 For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko(at)cvut.cz, I will be happy to help.
 
@@ -24,7 +24,7 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
-28.1.2025 - Test multiple combinations of parameters and fixed found bugs. Refactored the code to remove "CUDA separable compilation" option which now increased the clustering throughput back to the values listed in the published paper (~10-15%). 
+28.1.2025 - Test multiple combinations of parameters and fixed found bugs. Refactored the code to remove "CUDA separable compilation" (= device code linking) option which now increased the clustering throughput back to the values listed in the published paper (~10-15%).
 
 2.1.2025 - Added windows installer, but our gitlab linux distribution ci/cd pipelines seem to currently broken and therefore are not updated. The available version of .deb files should still be functional.
 
@@ -49,8 +49,8 @@ Project targets Linux-based and Windows platforms. Since the implementation runs
 
 Prerequisites to link against the prebuilt library (TBD):
 - Linux or Windows x86/64 platform
-- CUDA-capable device, compute capability >= 5.5
-- NVidia GPU Computing Toolkit >= 12.6 (and a compatible nvidia driver, check with `nvidia-smi` command)
+- CUDA-capable device, compute capability >= 6.1
+- NVidia GPU Computing Toolkit >= 12.4 (and a compatible nvidia driver, check with `nvidia-smi` command)
 - CMake >= 3.19
 - C++ compiler compatible with C++17 standard
 
@@ -70,10 +70,10 @@ We provide user multiple options how to install our library:
 
 
 #### Option 3: From source
-- Request access to the repository by email - free for non-commercial applications 
+
+- Request access to the repository by email - free for non-commercial applications assuming proper citation of the relevant article 
 - Create a build folder and generate build files with `cmake ..` or similar
 - Build with `cmake --build . --config=Release`
-- Similarily to option 2 ("From prebuilt .zip package"), let cmake know the path to `clusterer_cuda-config.cmake` file
 
 If you struggle with installation, feel free to reach out by email.
 
