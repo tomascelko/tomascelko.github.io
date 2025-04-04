@@ -17,12 +17,14 @@ This project provides free access to source code for non-commercial puproposes o
 For potential applications, improvements, ideas, bugs or questions please contact me by email either at celko(at)ksvi.mff.cuni.cz or at tomas.celko(at)cvut.cz, I will be happy to help.
 
 ## Supported hardware
-Currently we support clustering Timepix3 and Timpiex4 hits in data-driven mode.
+Currently we support clustering Timepix3 and Timepix4 hits in data-driven mode.
 Support for frame-based mode and multiple-detector configurations is being implemented.
 Support for other similar detectors or modes is a matter of demand, feel free to let us know about possible applications.
 
 
 ## News
+
+4.4.2025 - New CUDA-based parallel clustering algorithm with possibly significantly lower memory usage was designed, implementation is expected during May/2025. This parallel algorithm could enable much higher degree of parallelization but it is best to wait for the implementation and the subsequent benchmarks. 
 
 28.1.2025 - Test multiple combinations of parameters and fixed found bugs. Refactored the code to remove "CUDA separable compilation" (= device code linking) option which now increased the clustering throughput back to the values listed in the published paper (~10-15%).
 
