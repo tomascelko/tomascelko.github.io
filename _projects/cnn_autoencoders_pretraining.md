@@ -83,7 +83,7 @@ TBD
 
 <div class="row">
 <figure class="text-center">
-        {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_after" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_after.png" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
          <figcaption class="mt-2 text-muted">
       Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. 
     </figcaption>
