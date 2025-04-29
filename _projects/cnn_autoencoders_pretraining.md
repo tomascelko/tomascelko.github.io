@@ -50,7 +50,7 @@ TBD
 
 <div class="row">
         <figure class="text-center">
-        {% include figure.liquid loading="eager" path="assets/AE_CNN/curve.gif" title="Reconstruction of  energy of a curly track using CNN autoencoder as a function of number of training iterations" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/curve2.gif" title="Reconstruction of  energy of a curly track using CNN autoencoder as a function of number of training iterations" class="img-fluid rounded z-depth-1" %}
         </figure>
 </div>
 
