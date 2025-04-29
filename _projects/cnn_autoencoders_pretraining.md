@@ -22,6 +22,17 @@ As input to the model we use 3 channel image of size 384x384, which is upsampled
 - Third channel contains binary map of the pixels above certain energy threshold
 Data is normalized using sqare-root normalization.
 
+## Data
+
+### Pretraining
+Part of the data for unsupervised pretraining is obtained from Timepix3 measurements in ATLAS. This dataset contains high variability of clusters but smaller clusters are much more frequent. This is the reason why we also used ions data obtained at test beam measurements of Pb at SPS at Cern - these have higher frequency of large clusters. Dataset is balanced into exponentially sized bins which are aimed to have same frequency in teh dataset.
+
+### Supervised finetuning
+
+TBD
+
+
+
 
 <div class="row">
   <figure class="text-center">
@@ -60,4 +71,24 @@ Data is normalized using sqare-root normalization.
         {% include figure.liquid loading="eager" path="assets/AE_CNN/htrack.gif" title="Reconstruction of ion track using CNN autoencoder as a function of number of training iterations" class="img-fluid rounded z-depth-1" %}
          </figure>
 </div>
+
+<div class="row">
+<figure class="text-center">
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_before.png" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
+         <figcaption class="mt-2 text-muted">
+      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and BEFORE supervised finetuning to split protons from electrons. 
+    </figcaption>
+         </figure>
+</div>
+
+<div class="row">
+<figure class="text-center">
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_after" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
+         <figcaption class="mt-2 text-muted">
+      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. 
+    </figcaption>
+         </figure>
+</div>
+
+
 
