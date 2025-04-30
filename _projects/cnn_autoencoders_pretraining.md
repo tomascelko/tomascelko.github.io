@@ -109,18 +109,18 @@ Data for supervised finetuning is obtained from simulations. For instance, we si
 
 <div class="row">
 <figure class="text-center">
-        {% include figure.liquid loading="eager" path="assets/AE_CNN/electron_real_spectrum" title="Simulated real SATRAM electron spectrum" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/electron_real_spectrum.jpg" title="Simulated real SATRAM electron spectrum" class="img-fluid rounded z-depth-1" %}
          </figure>
 </div>
 
 <div class="row">
 <figure class="text-center">
-        {% include figure.liquid loading="eager" path="assets/AE_CNN/proton_real_spectrum" title="Simulated real SATRAM proton spectrum" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/proton_real_spectrum.jpg" title="Simulated real SATRAM proton spectrum" class="img-fluid rounded z-depth-1" %}
          </figure>
 </div>
 
 #### Validation 
-TBD, add plots
+TBD, add plots of Accuracy w.r.t time
 
 
 #### Separated protons and electron feature vectors
