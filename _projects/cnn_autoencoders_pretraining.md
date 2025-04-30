@@ -128,7 +128,7 @@ TBD, add plots of Accuracy w.r.t time
 <figure class="text-center">
         {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_after.png" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
          <figcaption class="mt-2 text-muted">
-      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. Some tracks were selected (using K-means) and for these we also show energy deposition and the tracks shape in a square box. We can see that tracks with similar angle are close together indicating model learned the feature to recognize particle angle. Another extracted feature seems to be track length. This is indeed building meaningful and interpretable features, not just copying data to the output.
+      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. Some tracks were selected (using K-means) and for these we also show energy deposition and the tracks shape in a square box. We can see that tracks with similar angle are close together indicating model learned the feature to recognize particle angle. Another extracted feature seems to be track length. This means that model is indeed building meaningful and interpretable features, not just copying data to the output.
     </figcaption>
          </figure>
 </div>
