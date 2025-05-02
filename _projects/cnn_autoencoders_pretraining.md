@@ -120,15 +120,37 @@ Data for supervised finetuning is obtained from simulations. For instance, we si
 </div>
 
 #### Validation 
-TBD, add plots of Accuracy w.r.t time
-
+<div class="row">
+<figure class="text-center">
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/mask.png" title="Validation accuracy for simulated SATRAM data during training" class="img-fluid rounded z-depth-1" %}
+        <figcaption class="mt-2 text-muted">
+        On the plot we can see how validation accuracy improves over the course of training. We can observe that pixel masking does not seem to have any measurable influence on the classifier accuracy.
+        </figcaption>
+         </figure>
+</div>
+<div class="row">
+<figure class="text-center">
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/marie.png" title="Validation accuracy for simulated SATRAM data during training" class="img-fluid rounded z-depth-1" %}
+        <figcaption class="mt-2 text-muted">
+        n the plot we can see how validation accuracy improves over the course of training. The plot shows comparison of three methods - real spectrum as created in our simulations, reference spectrum recreated as shown in <a href="https://hal.science/hal-03238974v1/document"> </a> and its variant with tracks containing more than 8 pixles. The main observation is that the reference spectrum seems to be easier to separate than the real one and most of its errors come from clusters with less than 8 pixels.  
+        </figcaption>
+         </figure>
+</div>
+<div class="row">
+<figure class="text-center">
+        {% include figure.liquid loading="eager" path="assets/AE_CNN/training_gain.png" title="Validation accuracy for simulated SATRAM data during training" class="img-fluid rounded z-depth-1" %}
+         <figcaption class="mt-2 text-muted">
+        In this plot we can see the overall difference of non-pretrained efficient net model classification and the pretrained one. One can see that the overall validation accuracy for the real spectrum is slightly better for pretrained model, than the non-pretrained one. Even though the maximum achieved accuracy is not drastically better, the convergence speed difference between pretrained and non-pretrained model is evident. 
+        </figcaption>
+        </figure>
+</div>
 
 #### Separated protons and electron feature vectors
 <div class="row">
 <figure class="text-center">
         {% include figure.liquid loading="eager" path="assets/AE_CNN/umap_mask0_after.png" title="Projection of extracted features of each cluster to 2D using UMAP" class="img-fluid rounded z-depth-1" %}
          <figcaption class="mt-2 text-muted">
-      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. Some tracks were selected (using K-means) and for these we also show energy deposition and the tracks shape in a square box. We can see that tracks with similar angle are close together indicating model learned the feature to recognize particle angle. Another extracted feature seems to be track length. This means that model is indeed building meaningful and interpretable features, not just copying data to the output.
+      Projection of feature vector obtained from CNN encoder into 2D AFTER unsupervised pretraining on ATLAS data and also AFTER supervised finetuning to split protons from electrons. Some tracks were selected (using K-means) and for these we also show energy deposition and the tracks shape in a square box. We can see that tracks with similar angle are close together indicating model learned the feature to recognize particle angle. Another extracted feature seems to be track length. This indicates that model is indeed building meaningful and interpretable features.
     </figcaption>
          </figure>
 </div>
