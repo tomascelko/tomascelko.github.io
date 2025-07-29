@@ -8,6 +8,14 @@ category: work
 related_publications: true
 latest_version: 0_0_1
 ---
+
+Below you can find a few relaxing and project-unrelated images.
+<div class="row">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/clusterer_cuda/icon/logoParallelClusterer.png" title="Parallel clustering logo" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>    
+
 ## About
 
 This project implements a parallel clustering libraries for CPU and GPU intended for hybrid pixel detectors. By clustering, we mean connected-component analysis with respect to spatial and temporal pixel coordinates. Namely, it implements algorithms described <a href="https://iopscience.iop.org/article/10.1088/1748-0221/20/01/C01041"> here </a> published in Journal of Instrumentation.  
@@ -18,7 +26,7 @@ For potential applications, improvements, ideas, bugs or questions please contac
 
 ## Supported hardware
 Currently we support clustering Timepix3 and Timepix4 hits in data-driven mode.
-Support for frame-based mode and multiple-detector configurations is being implemented.
+Support for frame-based mode and multiple-detector configurations is planned.
 Support for other similar detectors or modes is a matter of demand, feel free to let us know about possible applications.
 
 
