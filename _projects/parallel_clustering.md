@@ -36,7 +36,7 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
-29.7.2025 - Latest windows build was deployed to the website. 
+29.7.2025 - Latest windows build was deployed to the website and example cmake script was updated. 
 
 29.7.2025 - Benchmarks confirm that tile-based algorithm outperforms the current one by better utilizing the GPU compute power. To store small tiles, low-latency memory was used which enabled further optimizations. Regarding the actual peformance on RTX 4070 Ti Super, it was around 30% for smallest clusters up to more than 100% increase for large ion clusters. Release is planned by the end of summer. 
 
@@ -101,12 +101,22 @@ If you struggle with installation, feel free to reach out by email.
 
 We consider this to be the most convenient option. Based on the value of `CLUSTERER_CUDA_USE_STATIC` variable, the `clusterer_cuda-config.cmake` sets the variables `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY`. An example part of cmake script can be found below:
 ```cmake 
+
+cmake_minimum_required(VERSION 3.18)
+project(clusterer_test LANGUAGES CUDA CXX)
+
+enable_language(CUDA)
+find_package(CUDAToolkit REQUIRED)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+
 #we can set this variable, if we link dynamically and want to copy the .dll/.so file to the binary folder 
 #note, if it is not set, we need to make sure .dll/.so file is findable by the system
 set(CMAKE_BINARY_DIR_COPY_DLL "${CMAKE_CURRENT_LIST_DIR}/build/Release")
+
 set(CLUSTERER_CUDA_USE_STATIC ON)  # for static/dynamic linking, If building in debug mode, switching this to OFF can help
 find_package(clusterer_cuda REQUIRED)
-message(THESE_VARIABLES_SHOULD_BE_INITIALIZED ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
+message(THESE_VARIABLES_SHOULD_BE_INITIALIZED: ${CLUSTERER_CUDA_FOUND} ${CLUSTERER_CUDA_INCLUDE_DIR} ${CLUSTERER_CUDA_LIBRARY})
 add_executable(clusterer_test "src/main.cpp")
 target_include_directories(clusterer_test PRIVATE ${CLUSTERER_CUDA_INCLUDE_DIR})
 target_link_libraries(clusterer_test PRIVATE 
