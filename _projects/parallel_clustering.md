@@ -24,6 +24,10 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
+29.7.2025 - Latest windows build was deployed to the website. 
+
+29.7.2025 - Benchmarks confirm that tile-based algorithm outperforms the current one by better utilizing the GPU compute power. To store small tiles, low-latency memory was used which enabled further optimizations. Regarding the actual peformance on RTX 4070 Ti Super, it was around 30% for smallest clusters up to more than 100% increase for large ion clusters. Release is planned by the end of summer. 
+
 4.4.2025 - New CUDA-based parallel clustering algorithm with possibly significantly lower memory usage was designed, implementation is expected during May/2025. This parallel algorithm could enable much higher degree of parallelization but it is best to wait for the implementation and the subsequent benchmarks. 
 
 28.1.2025 - Test multiple combinations of parameters and fixed found bugs. Refactored the code to remove "CUDA separable compilation" (= device code linking) option which now increased the clustering throughput back to the values listed in the published paper (~10-15%).
@@ -51,7 +55,7 @@ Project targets Linux-based and Windows platforms. Since the implementation runs
 
 Prerequisites to link against the prebuilt library (TBD):
 - Linux or Windows x86/64 platform
-- CUDA-capable device, compute capability >= 6.1
+- CUDA-capable device, compute capability >= 6.5
 - NVidia GPU Computing Toolkit >= 12.4 (and a compatible nvidia driver, check with `nvidia-smi` command)
 - CMake >= 3.19
 - C++ compiler compatible with C++17 standard
@@ -215,11 +219,6 @@ _hit_data_cache_size = 12 // size of the hit data cache, beware of the available
   <tr>
     <td>Ubuntu 24.04</td>
     <td><a href="/assets/clusterer_cuda/build_ubuntu2404/clusterer_cuda_x64.deb" download="clusterer_cuda_ubuntu2404.deb">Download clusterer_cuda_ubuntu2404.deb</a></td>
-    <td>TBD</td>
-  </tr>
-  <tr>
-    <td>Debian 11</td>
-    <td><a href="/assets/clusterer_cuda/build_debian11/clusterer_cuda_x64.deb" download="clusterer_cuda_debian11.deb">Download clusterer_cuda_debian11.deb</a></td>
     <td>TBD</td>
   </tr>
   <tr>
