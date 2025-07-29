@@ -9,12 +9,16 @@ related_publications: true
 latest_version: 0_0_1
 ---
 
-Below you can find a few relaxing and project-unrelated images.
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/clusterer_cuda/icon/logoParallelClusterer.png" title="Parallel clustering logo" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid 
+            loading="eager"
+            path="assets/clusterer_cuda/icon/logoParallelClusterer.png"
+            title="Parallel clustering logo"
+            class="img-fluid w-50 rounded z-depth-1"
+        %}
     </div>
-</div>    
+</div>
 
 ## About
 
