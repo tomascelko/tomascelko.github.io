@@ -234,7 +234,7 @@ attribute_frame_length_s = 1 //frame length in seconds, can be floating point nu
 
 // (iv) extra metadata required for attribute computation - required if energy-based attribute is to be computed (applicable since 1.0)
 
-calibration_folder = D:/PHD/clusterer_data/calib/H07-W0052[CdTe]/calib_pars
+calibration_folder = D:/path/to/calibration/ceofficients/H07-W0052[CdTe]/calib_pars // path to calibration folder containing a.txt, b.txt c.txt, t.txt calibration files
 
 ```
 
