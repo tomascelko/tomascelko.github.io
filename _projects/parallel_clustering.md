@@ -6,7 +6,7 @@ img: assets/img/logoParallelClusterer.png
 importance: 1
 category: work
 related_publications: true
-latest_version: 0_0_1
+latest_version: 1_0
 ---
 
 <div class="row">
@@ -36,9 +36,11 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
+15.12.2025 - Parallel clustering 1.0 (Unstable) - Release of the new tile-based clustering algorithm. The release includes also GPU-side attribute computation including cluster energy, energy histograms and aggregation into frames as well as energy-based filtering.
+
 29.7.2025 - Latest windows build was deployed to the website and example cmake script was updated. 
 
-29.7.2025 - Benchmarks confirm that tile-based algorithm outperforms the current one by better utilizing the GPU compute power. To store small tiles, low-latency memory was used which enabled further optimizations. Regarding the actual peformance on RTX 4070 Ti Super, it was around 30% for smallest clusters up to more than 100% increase for large ion clusters. Release is planned by the end of summer. 
+29.7.2025 - Benchmarks confirm that tile-based algorithm outperforms the current one by better utilizing the GPU compute power. To store small tiles, low-latency memory was used which enabled further optimizations. Regarding the actual peformance on RTX 4070 Ti Super, it was around 30% for smallest clusters up to more than 100% increase for large ion clusters. Release is planned by the end of the year. 
 
 4.4.2025 - New CUDA-based parallel clustering algorithm with possibly significantly lower memory usage was designed, implementation is expected during May/2025. This parallel algorithm could enable much higher degree of parallelization but it is best to wait for the implementation and the subsequent benchmarks. 
 
@@ -67,7 +69,7 @@ Project targets Linux-based and Windows platforms. Since the implementation runs
 
 Prerequisites to link against the prebuilt library (TBD):
 - Linux or Windows x86/64 platform
-- CUDA-capable device, compute capability >= 6.5
+- CUDA-capable device, compute capability >= 6.7
 - NVidia GPU Computing Toolkit >= 12.4 (and a compatible nvidia driver, check with `nvidia-smi` command)
 - CMake >= 3.19
 - C++ compiler compatible with C++17 standard
@@ -190,7 +192,8 @@ void test_clustering_tpx4()
 
 And finally, an example, how the `config.txt` file might look like:
 ```
-// Configuration for clustering
+//(i) Configuration for clustering - mandatory
+
 max_hitrate_mhz = 300 // maximum possible hitrate that can occur during max_unsortedness period of time
 max_unsortedness_mus = 500 // maximum unorderedness of hits on the input
 max_cluster_join_time_ns = 300 // maximum time difference of hits to be considered neighboring
@@ -205,6 +208,34 @@ toa_ns_decimal_digits = 1 // decimal digits of toa 0 = 1ns, 1 = 0.1ns, 2 = 0.01n
 cuda_init_threads_per_block = 256 // threads per block used for initialization of auxiliary datastructures
 _label_cache_size = 32 // size of the label cache in shared memory
 _hit_data_cache_size = 12 // size of the hit data cache, beware of the available shared memory on a GPU
+
+// (ii) configuration for attributes - optional (applicable since 1.0)
+
+discard_non_attribute_data = false // remove x,y,toa, tot and label data, only preserve attributes - reduces copying load
+attribute_energy = true // convert tot clock ticks to keV
+attribute_cluster_size = true // compute pixel count for each cluster explicitly (implicit from labels field)
+attribute_cluster_energy = true // compute sum of energy of each pixel in each cluster
+attribute_cluster_energy_2d_map = true // compute energy-weighted centroid of clusters and aggregate them into the 2D frame further defined by section (iii)
+
+attribute_cluster_energy_spectrum = true // compute cluster energy histogram, if true, also set the lower and upper bound as well as bin count
+attribute_cluster_energy_spectrum_min = 0 // lower bound of the histogram (first bin start)
+attribute_cluster_energy_spectrum_max = 100 // upper bound of the histogram (last bin)
+attribute_cluster_energy_spectrum_bin_count = 50 // number of histogram bins
+
+// (iii) configuration for attributes -optional, applies to cluster_energy_2d_map only (applicable since 1.0)
+
+attribute_cluster_energy_filter_1 = 0:5 // for each energy filter interval we get a output sequence of frames, one can define arbitrarily many of such intervals but each with a non-trivial performance overhead (0:5 means include clusters in range from 0 keV to 5keV)
+attribute_cluster_energy_filter_2 = 5:10 // similar as filter_1, don't forget to number the filters in a sequence 1,2,3... without gaps
+attribute_cluster_energy_filter_3 = 10:20 // similar as  filter_1
+//...
+attribute_frame_length_s = 1 //frame length in seconds, can be floating point number, If attribute_cluster_energy_2d_map = true the frame length must be specified
+
+
+
+// (iv) extra metadata required for attribute computation - required if energy-based attribute is to be computed (applicable since 1.0)
+
+calibration_folder = D:/PHD/clusterer_data/calib/H07-W0052[CdTe]/calib_pars
+
 ```
 
 ### V. Prebuilt library available for download:
@@ -212,55 +243,42 @@ _hit_data_cache_size = 12 // size of the hit data cache, beware of the available
 <table>
   <tr>
     <th>Platform</th>
-    <th>GPU Library, prebuilt (Latest)</th>
-    <th>GPU Library, prebuilt (Stable)</th>
+    <th>GPU Library, prebuilt (Stable, 0.1)</th>
+    <th>GPU Library, prebuilt (Latest, 1.0)</th>
     
   </tr>
   <tr>
     <td>Windows installer</td>
     <td><a href="/assets/clusterer_cuda/build_win/clusterer_cuda_installer.exe" download="clusterer_cuda_installer.exe">Download clusterer_cuda_installer.exe</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_win/clusterer_cuda_installer.exe" download="clusterer_cuda_installer.exe">Download clusterer_cuda_installer.exe</a></td>
   </tr>
   <tr>
     <td>Windows (archive)</td>
     <td><a href="/assets/clusterer_cuda/build_win/clusterer_cuda_win.zip" download="clusterer_cuda_win.zip">Download clusterer_cuda_win.zip</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_win/clusterer_cuda_win.zip" download="clusterer_cuda_win.zip">Download clusterer_cuda_win.zip</a></td>
   </tr>
   <tr>
     <td>Other Unix-based system (archive)</td>
     <td><a href="/assets/clusterer_cuda/build_ubuntu2404/clusterer_cuda.zip" download="clusterer_cuda.zip">Download clusterer_cuda.zip</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_ubuntu2404/clusterer_cuda.zip" download="clusterer_cuda.zip">Download clusterer_cuda.zip</a></td>
 
   </tr>
   <tr>
     <td>Ubuntu 22.04</td>
     <td><a href="/assets/clusterer_cuda/build_ubuntu2204/clusterer_cuda_x64.deb" download="clusterer_cuda_ubuntu2204.deb">Download clusterer_cuda_ubuntu2204.deb</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_ubuntu2204/clusterer_cuda_x64.deb" download="clusterer_cuda_ubuntu2204.deb">Download clusterer_cuda_ubuntu2204.deb</a></td>
 
   </tr>
   <tr>
     <td>Ubuntu 24.04</td>
     <td><a href="/assets/clusterer_cuda/build_ubuntu2404/clusterer_cuda_x64.deb" download="clusterer_cuda_ubuntu2404.deb">Download clusterer_cuda_ubuntu2404.deb</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_ubuntu2404/clusterer_cuda_x64.deb" download="clusterer_cuda_ubuntu2404.deb">Download clusterer_cuda_ubuntu2404.deb</a></td>
   </tr>
   <tr>
     <td>Debian 12</td>
     <td><a href="/assets/clusterer_cuda/build_debian12/clusterer_cuda_x64.deb" download="clusterer_cuda_debian12.deb">Download clusterer_cuda_debian12.deb</a></td>
-    <td>TBD</td>
+    <td><a href="/assets/clusterer_cuda_dev_gpu/build_debian12/clusterer_cuda_x64.deb" download="clusterer_cuda_debian12.deb">Download clusterer_cuda_debian12.deb</a></td>
   </tr>
 
 
 </table>
-
-Below you can find a few relaxing and project-unrelated images.
-<div class="row">
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/1.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/3.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/5.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-    </div>
-</div>
