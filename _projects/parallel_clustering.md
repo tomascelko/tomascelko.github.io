@@ -134,9 +134,8 @@ Another option is to bypass cmake `find_package` completely and set `CLUSTERER_C
 
 ### IV. Example use (up-to-date with version 1.0):
 ```cpp
-#include "data_flow/external_dataflow_controller.h"
+#include "data_flow/external_dataflow_controller.cuh"
 #include "data_structs/clustered_data.h"
-#include "data_nodes/nodes_package.h"
 using namespace clustering;
 void test_clustering_tpx3()
 {
@@ -145,6 +144,7 @@ void test_clustering_tpx3()
   {
     std::cout << "Returned with " << data.size << " hits" << std::endl;
     std::cout << "First hit: " << data.x[0] << data.y[0] << data.toa[0] << data.tot[0] << data.label[0] << std::endl;
+    // Since 1.0 the actual toa is 4B, which means i-th pixel's time is offset encoded as data.toa_offset + data.toa[i] 
     // Since version 1.0 we can also query the attributes
     std::cout << "First cluster size:" << data.attributes.cluster_sizes[0] << std::endl;
     std::cout << "First cluster energy:" << data.attributes.cluster_energy[0] << std::endl;
@@ -178,7 +178,7 @@ void test_clustering_tpx3()
 ```
 And for using the clustering library with timepix4 data folow similar approach:
 ```cpp
-#include "data_flow/external_dataflow_controller.h"
+#include "data_flow/external_dataflow_controller.cuh"
 #include "data_structs/clustered_data.h"
 using namespace clustering;
 void test_clustering_tpx4()
