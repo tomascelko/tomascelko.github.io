@@ -67,8 +67,8 @@ Development of the standalone package is in progress.
 
 Project targets Linux-based and Windows platforms. Since the implementation runs in CUDA, a CUDA-capable device is required to run the project.
 
-Prerequisites to link against the prebuilt library (TBD):
-- Linux or Windows x86/64 platform
+Prerequisites to link against the prebuilt library:
+- Linux or Windows x86/64 platform (for others contact us for building from source)
 - CUDA-capable device, compute capability >= 6.7
 - NVidia GPU Computing Toolkit >= 12.4 (and a compatible nvidia driver, check with `nvidia-smi` command)
 - CMake >= 3.19
@@ -132,7 +132,7 @@ target_link_libraries(clusterer_test PRIVATE
 Another option is to bypass cmake `find_package` completely and set `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY` manually. This is also the case for non-cmake-based projects, like the ones in Visual Studio. In Visual Studio, go to `Configuration Properties > C/C++ > General` and set `Additional Include Directories`, and similarly for `Configuration Properties > Linker > General` set `Additional Library Directories`.
 
 
-### IV. Example use:
+### IV. Example use (up-to-date with version 1.0):
 ```cpp
 #include "data_flow/external_dataflow_controller.h"
 #include "data_structs/clustered_data.h"
@@ -145,6 +145,16 @@ void test_clustering_tpx3()
   {
     std::cout << "Returned with " << data.size << " hits" << std::endl;
     std::cout << "First hit: " << data.x[0] << data.y[0] << data.toa[0] << data.tot[0] << data.label[0] << std::endl;
+    // Since version 1.0 we can also query the attributes
+    std::cout << "First cluster size:" << data.attributes.cluster_sizes[0] << std::endl;
+    std::cout << "First cluster energy:" << data.attributes.cluster_energy[0] << std::endl;
+    const uint8_t output_index = 0; // select output stream of frames
+    std::cout << "First pixel total energy in the frame:" << data.attributes.cluster_energy_2d_map[output_index][0] <<std::endl;
+    std::cout << "Index of the first pixel in the frame:" << data.attributes.cluster_energy_2d_map_indices[output_index][0] <<std::endl; // If pixel index has value j then j = frame_idx * sensor_matrix_size + pixel_matrix_coordinate (zero suppressed sparse encoding) -> frame_idx and pixel matrix idx can be computed as follows: 
+    // frame_idx  = j div sensor_matrix_size
+    // pixel_matrix_idx = j mod sensor_matrix_size
+    // Note: the number of elements of data.attributes.cluster_energy_2d_map is data.attributes.nonzero_pixel_matrix_count_clustered
+
     /*process the data here in the callback, make a copy, as the data pointers might not be valid after callback returns...
       data.x, data.y, data.toa, data.tot
       //note: data.toa is uint64_t = 19 digits of precision - toa in nanoseconds or even smaller, controlled by parameter decimal digits 
@@ -155,10 +165,11 @@ void test_clustering_tpx3()
   external_dataflow_controller<tpx3_hit> controller_tpx3(node_args::load_tpx3_args(/*pass algorithm parameters here in a config file*/ "config.txt"), output_callback);
   //run the controller, after that we are ready to receive data  
   controller_tpx3.run();
-  //store reference to reader node
-  external_stream_data_reader<tpx3_hit>* reader = controller_tpx3.input();
+ 
   //process hits in a loop, example
-  reader->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4/*tot*/);
+  controller_tpx3.process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4/*tot*/);
+  //Note: in versions < 1.0 please call controller_tpx3.input()->process_hit() instead
+
   //after sufficient amount of hits is processed, the callback is called
   ...
   //stop the dataflow, and flush not-yet processed hits and call callback for the last time
@@ -169,20 +180,20 @@ And for using the clustering library with timepix4 data folow similar approach:
 ```cpp
 #include "data_flow/external_dataflow_controller.h"
 #include "data_structs/clustered_data.h"
-#include "data_nodes/nodes_package.h"
 using namespace clustering;
 void test_clustering_tpx4()
 {
 // define function callback to receive clustered data
   auto output_callback = [](clustered_data<tpx4_hit> data){...}
-  //initialize controller with arguments
+  
+  //initialize controller with arguments, for definition of "output_callback see the example above for timepix3"
   external_dataflow_controller<tpx4_hit> controller_tpx4(node_args::load_tpx4_args(/*pass algorithm parameters here in a config file*/ "config.txt"), output_callback);
   //run the controller, after that we are ready to receive data
   controller_tpx4.run();
-  //store reference to reader node
-  external_stream_data_reader<tpx4_hit>* reader = controller_tpx4.input();
+  //Note: in versions < 1.0 please call controller_tpx4.input()->process_hit() instead
+
   //process hits in a loop, notice the addition of ultra fine toa
-  reader->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4 /*ultra fine toa*/, 5/*tot*/);
+  controller_tpx4->process_hit(0 /*pixel_idx*/, 2 /*coarse toa*/, 3 /*fine toa*/, 4 /*ultra fine toa*/, 5/*tot*/);
   //after sufficient amount of hits is processed, the callback is called
   ...
   //stop the dataflow, and flush not-yet processed hits and call callback for the last time
