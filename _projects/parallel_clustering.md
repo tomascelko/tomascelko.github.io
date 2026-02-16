@@ -36,6 +36,8 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
+16.02.2025 - Support for tpx4 tested, tileId overflow bug fixed. All Latest builds were updated.
+
 15.12.2025 - Parallel clustering 1.0 (Unstable) - Release of the new tile-based clustering algorithm. The release includes also GPU-side attribute computation including cluster energy, energy histograms and aggregation into frames as well as energy-based filtering.
 
 29.7.2025 - Latest windows build was deployed to the website and example cmake script was updated. 
