@@ -36,6 +36,8 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 ## News
 
+28.04.2025 - Version 1.1 is now out. Further bugfixing for timepix4 processing added. Additional performance improvements for clustering and dense frame aggregation implemented.
+
 16.02.2025 - Support for tpx4 tested, tileId overflow bug fixed. All Latest builds were updated.
 
 15.12.2025 - Parallel clustering 1.0 (Unstable) - Release of the new tile-based clustering algorithm. The release includes also GPU-side attribute computation including cluster energy, energy histograms and aggregation into frames as well as energy-based filtering.
@@ -257,7 +259,7 @@ calibration_folder = D:/path/to/calibration/ceofficients/H07-W0052[CdTe]/calib_p
   <tr>
     <th>Platform</th>
     <th>GPU Library, prebuilt (Stable, 0.1)</th>
-    <th>GPU Library, prebuilt (Latest, 1.0)</th>
+    <th>GPU Library, prebuilt (Latest, 1.1)</th>
     
   </tr>
   <tr>
