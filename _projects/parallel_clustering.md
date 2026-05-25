@@ -35,10 +35,11 @@ Support for other similar detectors or modes is a matter of demand, feel free to
 
 
 ## News
+25.05.2026 - Version 1.2 is now out. Option for xrf correction on GPU implemented. Important: backward compatibility with tpx4 coordinate system is now broken. For tpx4, max X coordinate is 448, max Y is 512 and linear coordinate is computed as x*max_y + y. This gave us compatibility with tpx3 computation and more consistent code across detectors. 
 
-28.04.2025 - Version 1.1 is now out. Further bugfixing for timepix4 processing added. Additional performance improvements for clustering and dense frame aggregation implemented.
+28.04.2026 - Version 1.1 is now out. Further bugfixing for timepix4 processing added. Additional performance improvements for clustering and dense frame aggregation implemented.
 
-16.02.2025 - Support for tpx4 tested, tileId overflow bug fixed. All Latest builds were updated.
+16.02.2026 - Support for tpx4 tested, tileId overflow bug fixed. All Latest builds were updated.
 
 15.12.2025 - Parallel clustering 1.0 (Unstable) - Release of the new tile-based clustering algorithm. The release includes also GPU-side attribute computation including cluster energy, energy histograms and aggregation into frames as well as energy-based filtering.
 
@@ -136,7 +137,7 @@ target_link_libraries(clusterer_test PRIVATE
 Another option is to bypass cmake `find_package` completely and set `CLUSTERER_CUDA_INCLUDE_DIR` and `CLUSTERER_CUDA_LIBRARY` manually. This is also the case for non-cmake-based projects, like the ones in Visual Studio. In Visual Studio, go to `Configuration Properties > C/C++ > General` and set `Additional Include Directories`, and similarly for `Configuration Properties > Linker > General` set `Additional Library Directories`.
 
 
-### IV. Example use (up-to-date with version 1.0):
+### IV. Example use (up-to-date since version 1.0):
 ```cpp
 #include "data_flow/external_dataflow_controller.cuh"
 #include "data_structs/clustered_data.h"
@@ -212,11 +213,11 @@ And finally, an example, how the `config.txt` file might look like:
 max_hitrate_mhz = 300 // maximum possible hitrate that can occur during max_unsortedness period of time
 max_unsortedness_mus = 500 // maximum unorderedness of hits on the input
 max_cluster_join_time_ns = 300 // maximum time difference of hits to be considered neighboring
-buffer_size = 7000000 // host and device buffer size
-host_buffer_count = 8 // number of pinned-memory buffers allocated on the host
-cuda_streams_per_worker = 4 // number of cuda streams in each clustering worker
-cuda_thread_count = 7680 // degree of parallelization, use carefully based on the buffer_size and available hardware
-cuda_min_launch_stream_count = 4 // minimum number of buffers required to run the clustering
+buffer_size = 8000000 // host and device buffer size
+host_buffer_count = 8 // number of pinned-memory buffers allocated on the host, should be at least max(2*cuda_streams_per_worker, 3)
+cuda_streams_per_worker = 4 // number of cuda streams in each clustering worker, set equal to cuda min launch stream count
+cuda_thread_count = 1000000 // degree of parallelization, use carefully based on the buffer_size and available hardware
+cuda_min_launch_stream_count = 4 // minimum number of buffers required to run the clustering, set equal to cuda_streams per worker
 cuda_clustering_threads_per_block = 128 // number of threads in a single cuda thread block
 print_info_dt_ms = 500 // frequency of printing information about the dataflow
 toa_ns_decimal_digits = 1 // decimal digits of toa 0 = 1ns, 1 = 0.1ns, 2 = 0.01ns ...
@@ -243,13 +244,25 @@ attribute_cluster_energy_filter_1 = 0:5 // for each energy filter interval we ge
 attribute_cluster_energy_filter_2 = 5:10 // similar as filter_1, don't forget to number the filters in a sequence 1,2,3... without gaps
 attribute_cluster_energy_filter_3 = 10:20 // similar as  filter_1
 //...
-attribute_frame_length_s = 1 //frame length in seconds, can be floating point number, If attribute_cluster_energy_2d_map = true the frame length must be specified
+
+attribute_cluster_energy_2d_map = true // IF true, the frame length must be specified
+attribute_frame_length_s = 1 //frame length in seconds, can be a floating point number 
 
 
+// (iv) extra metadata required for attribute computation (optional) - required if energy-based attribute is to be computed (applicable since 1.0), otherwise skip this argument entirely
 
-// (iv) extra metadata required for attribute computation - required if energy-based attribute is to be computed (applicable since 1.0)
+calibration_folder = D:/path/to/calibration/coefficients/H07-W0052[CdTe]/calib_pars // path to calibration folder containing a.txt, b.txt c.txt, t.txt calibration files
 
-calibration_folder = D:/path/to/calibration/ceofficients/H07-W0052[CdTe]/calib_pars // path to calibration folder containing a.txt, b.txt c.txt, t.txt calibration files
+// (v) xrf correction parameters (optional)
+attribute_use_xrf_energy_correction = true // sets whether pairs of coincident clusters with given parameters should be corrected for. Larger coincidence groups are discarded.
+attribute_xrf_dt_ns = 30
+attribute_xrf_energy_min = 12
+attribute_xrf_energy_max = 36
+attribute_xrf_dist_px = 25
+
+// (V) tpx4 compatibility params (optional)
+attribute_input_tot_float = false //set to true If the input ToT format is actually a floating point number (for comaptibility with P.Burian Tpx4 readout)
+
 
 ```
 
